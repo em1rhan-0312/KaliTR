@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paket Kurulumu - Kali Linux</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <span class="logo-icon">🐉</span>
+            <span class="logo-text">Kali<span class="accent">TR</span></span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Ana Sayfa</a></li>
+            <li><a href="download.html">İndir</a></li>
+            <li><a href="packages.html" class="active">Paket Kurulumu</a></li>
+            <li><a href="tools.html">Araçlar</a></li>
+            <li><a href="iletisim.html">İletişim</a></li>
+        </ul>
+        <div class="hamburger"><span></span><span></span><span></span></div>
+    </nav>
+
+    <header class="page-header">
+        <h1>// Paket Kurulumu</h1>
+        <p>Kali Linux'ta yazılım yüklemenin tüm yöntemleri</p>
+    </header>
+
+    <section class="packages-section">
+        <div class="package-card">
+            <h2>📦 APT (Advanced Package Tool)</h2>
+            <p>Debian tabanlı sistemler için varsayılan paket yöneticisi. En sık kullanacağın yöntem.</p>
+            <div class="code-block">
+                <pre><code># Depoları güncelle
+sudo apt update
+
+# Tüm sistemi yükselt
+sudo apt upgrade -y
+sudo apt full-upgrade -y
+
+# Paket ara
+apt search nmap
+
+# Paket yükle
+sudo apt install nmap -y
+
+# Paket kaldır
+sudo apt remove nmap
+sudo apt purge nmap    # yapılandırma ile birlikte
+
+# Yüklü paketler
+apt list --installed
+dpkg -l | grep nmap
+
+# Paket bilgisi
+apt show nmap</code></pre>
+            </div>
+        </div>
+
+        <div class="package-card">
+            <h2>📂 DPKG (.deb dosyaları)</h2>
+            <p>İndirilen .deb uzantılı dosyaları kurmak için kullanılır.</p>
+            <div class="code-block">
+                <pre><code># .deb dosyası kur
+sudo dpkg -i paket_adi.deb
+
+# Bağımlılık hatalarını çöz
+sudo apt install -f
+
+# Kurulu paket kontrol
+dpkg -l | grep paket_adi
+
+# Paket kaldır
+sudo dpkg -r paket_adi</code></pre>
+            </div>
+        </div>
+
+        <div class="package-card">
+            <h2>🐍 PIP (Python paketleri)</h2>
+            <p>Python ile yazılmış araçları kurmak için kullanılır.</p>
+            <div class="code-block">
+                <pre><code># pip kurulumu
+sudo apt install python3-pip -y
+
+# Paket yükle
+pip3 install sqlmap
+pip3 install --user sqlmap   # sadece kullanıcıya
+
+# Belirli sürüm
+pip3 install sqlmap==1.7.0
+
+# Güncelle
+pip3 install --upgrade sqlmap
+
+# Kaldır
+pip3 uninstall sqlmap
+
+# Yüklü paketler
+pip3 list</code></pre>
+            </div>
+        </div>
+
+        <div class="package-card">
+            <h2>🟢 Snap (Evrensel paketler)</h2>
+            <p>Linux dağıtımlarında çalışan evrensel paket sistemi.</p>
+            <div class="code-block">
+                <pre><code># Snap kur
+sudo apt install snapd -y
+
+# Snap mağazasından ara
+snap find code
+
+# Paket yükle
+sudo snap install code --classic
+sudo snap install discord
+
+# Güncelle
+sudo snap refresh
+
+# Kaldır
+sudo snap remove code
+
+# Yüklü snap'ler
+snap list</code></pre>
+            </div>
+        </div>
+
+        <div class="package-card">
+            <h2>🟡 GitHub'dan Kurulum</h2>
+            <p>Birçok güvenlik aracı GitHub'da barındırılır ve oradan derlenir.</p>
+            <div class="code-block">
+                <pre><code># Git kurulumu
+sudo apt install git -y
+
+# Repoyu klonla
+git clone https://github.com/sqlmapproject/sqlmap.git
+
+# Dizin içine gir
+cd sqlmap
+
+# Çalıştır
+python3 sqlmap.py
+
+# Veya /usr/local/bin'e kopyala (sistem genelinde erişim)
+sudo cp sqlmap.py /usr/local/bin/sqlmap
+sudo chmod +x /usr/local/bin/sqlmap</code></pre>
+            </div>
+        </div>
+
+        <div class="package-card">
+            <h2>🔧 Kaynak Koddan Derleme</h2>
+            <p>Yazılımın kaynak kodundan manuel olarak derlenmesi.</p>
+            <div class="code-block">
+                <pre><code># Gerekli araçlar
+sudo apt install build-essential cmake git -y
+
+# Kaynak kodu indir
+wget https://example.com/tool.tar.gz
+tar -xzvf tool.tar.gz
+cd tool
+
+# Derle
+./configure
+make
+sudo make install
+
+# CMake ile
+mkdir build && cd build
+cmake ..
+make
+sudo make install</code></pre>
+            </div>
+        </div>
+
+        <div class="package-card">
+            <h2>📋 Meta Paketler</h2>
+            <p>Kali Linux'un hazır paket koleksiyonları.</p>
+            <div class="code-block">
+                <pre><code># Tüm araçlar (büyük - ~20GB)
+sudo apt install kali-linux-everything
+
+# Sık kullanılan araçlar
+sudo apt install kali-linux-default
+
+# Kablosuz ağ araçları
+sudo apt install kali-linux-wireless
+
+# Web uygulama araçları
+sudo apt install kali-linux-web
+
+# Adli bilişim araçları
+sudo apt install kali-linux-forensic
+
+# Tersine mühendislik
+sudo apt install kali-linux-reverse
+
+# Exploit araçları
+sudo apt install kali-linux-exploit
+
+# Şifre kırma
+sudo apt install kali-linux-password
+
+# VoIP araçları
+sudo apt install kali-linux-voip
+
+# Donanım hackleme
+sudo apt install kali-linux-hardware
+
+# Yüklü meta paketler
+apt list --installed | grep kali-linux</code></pre>
+            </div>
+        </div>
+
+        <div class="package-card">
+            <h2>🗃️ Depo Ekleme (Repository)</h2>
+            <p>Üçüncü parti depolar ekleme.</p>
+            <div class="code-block">
+                <pre><code># /etc/apt/sources.list'e ekle
+echo "deb http://repo.example.com kali-rolling main" | sudo tee /etc/apt/sources.list.d/custom.list
+
+# GPG anahtarı ekle
+wget -q -O - https://repo.example.com/key.gpg | sudo apt-key add -
+
+# Güncelle ve kur
+sudo apt update
+sudo apt install custom-tool -y</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>🐉 KaliTR</h4>
+                <p>Türk hacker topluluğu.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Topluluk</h4>
+                <a href="https://whatsapp.com/channel/0029Vb7aKWbL2ATxiYt8e52f" class="social-link" target="_blank">📱 WhatsApp Kanalımız</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>⚠️ Eğitim amaçlıdır.</p>
+            <p>&copy; 2026 KaliTR</p>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

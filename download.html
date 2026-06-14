@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İndir - Kali Linux</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <span class="logo-icon">🐉</span>
+            <span class="logo-text">Kali<span class="accent">TR</span></span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Ana Sayfa</a></li>
+            <li><a href="download.html" class="active">İndir</a></li>
+            <li><a href="packages.html">Paket Kurulumu</a></li>
+            <li><a href="tools.html">Araçlar</a></li>
+            <li><a href="iletisim.html">İletişim</a></li>
+        </ul>
+        <div class="hamburger"><span></span><span></span><span></span></div>
+    </nav>
+
+    <header class="page-header">
+        <h1>// Kali Linux İndir</h1>
+        <p>Resmi Offensive Security imajları</p>
+    </header>
+
+    <section class="download-section">
+        <div class="download-card">
+            <h2>💿 Installer ISO</h2>
+            <p>Tam kurulum için önerilen imaj. Diske veya USB'ye yazdırılabilir.</p>
+            <ul class="info-list">
+                <li>📦 Boyut: ~4.1 GB</li>
+                <li>🏗️ Mimari: x86_64, ARM</li>
+                <li>🖥️ Masaüstü: XFCE (varsayılan)</li>
+            </ul>
+            <a href="https://www.kali.org/get-kali/#kali-installer-images" target="_blank" class="btn btn-primary">İndir ⬇</a>
+        </div>
+
+        <div class="download-card">
+            <h2>🖥️ VirtualBox / VMware</h2>
+            <p>Sanal makine olarak çalıştırmak için hazır imajlar.</p>
+            <ul class="info-list">
+                <li>📦 Boyut: ~4.1 GB</li>
+                <li>⚡ Hızlı kurulum</li>
+                <li>🔄 Snapshot desteği</li>
+            </ul>
+            <a href="https://www.kali.org/get-kali/#kali-virtual-machines" target="_blank" class="btn btn-primary">İndir ⬇</a>
+        </div>
+
+        <div class="download-card">
+            <h2>💾 Live USB</h2>
+            <p>Kurulum yapmadan USB bellekten doğrudan çalıştırma.</p>
+            <ul class="info-list">
+                <li>📦 Boyut: ~4.1 GB</li>
+                <li>🔌 Persistence desteği</li>
+                <li>🚫 Diske dokunmaz</li>
+            </ul>
+            <a href="https://www.kali.org/get-kali/#kali-live" target="_blank" class="btn btn-primary">İndir ⬇</a>
+        </div>
+
+        <div class="download-card">
+            <h2>🥧 Raspberry Pi</h2>
+            <p>ARM tabanlı tek kart bilgisayarlar için.</p>
+            <ul class="info-list">
+                <li>📦 Boyut: ~1.2 GB</li>
+                <li>🍓 Pi 4/5 optimize</li>
+                <li>🔧 ARM64 mimari</li>
+            </ul>
+            <a href="https://www.kali.org/get-kali/#kali-arm" target="_blank" class="btn btn-primary">İndir ⬇</a>
+        </div>
+
+        <div class="download-card">
+            <h2>📱 WSL (Windows)</h2>
+            <p>Windows Subsystem for Linux üzerinde çalıştırma.</p>
+            <ul class="info-list">
+                <li>📦 Boyut: ~700 MB</li>
+                <li>🪟 Windows entegrasyonu</li>
+                <li>⚡ Hızlı başlatma</li>
+            </ul>
+            <a href="https://www.kali.org/get-kali/#kali-wsl" target="_blank" class="btn btn-primary">İndir ⬇</a>
+        </div>
+
+        <div class="download-card">
+            <h2>☁️ Bulut (Cloud)</h2>
+            <p>AWS, Azure ve Google Cloud için hazır imajlar.</p>
+            <ul class="info-list">
+                <li>📦 Anlık dağıtım</li>
+                <li>☁️ Multi-cloud</li>
+                <li>💸 Ücretsiz tier var</li>
+            </ul>
+            <a href="https://www.kali.org/get-kali/#kali-cloud" target="_blank" class="btn btn-primary">İndir ⬇</a>
+        </div>
+    </section>
+
+    <section class="install-guide">
+        <h2 class="section-title">// Kurulum Sonrası İlk Adımlar</h2>
+        <div class="code-block">
+            <pre><code># 1. Sistem güncellemesi
+sudo apt update && sudo apt upgrade -y
+
+# 2. Tüm araçları yükle (eğer minimal kurulum yaptıysanız)
+sudo apt install kali-linux-everything -y
+
+# 3. Root şifresi ayarlama
+sudo passwd root
+
+# 4. SSH servisini aktif etme
+sudo systemctl enable ssh
+sudo systemctl start ssh
+
+# 5. Sistem bilgisi
+uname -a
+cat /etc/os-release</code></pre>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>🐉 KaliTR</h4>
+                <p>Türk hacker topluluğu ve eğitim platformu.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Topluluk</h4>
+                <a href="https://whatsapp.com/channel/0029Vb7aKWbL2ATxiYt8e52f" class="social-link" target="_blank">📱 WhatsApp Kanalımız</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>⚠️ Bu sitedeki bilgiler yalnızca eğitim amaçlıdır.</p>
+            <p>&copy; 2026 KaliTR</p>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
