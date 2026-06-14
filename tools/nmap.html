@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nmap - Kali Linux Araçları</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <span class="logo-icon">🐉</span>
+            <span class="logo-text">Kali<span class="accent">TR</span></span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="../index.html">Ana Sayfa</a></li>
+            <li><a href="../download.html">İndir</a></li>
+            <li><a href="../packages.html">Paket Kurulumu</a></li>
+            <li><a href="../tools.html">Araçlar</a></li>
+            <li><a href="../iletisim.html">İletişim</a></li>
+        </ul>
+        <div class="hamburger"><span></span><span></span><span></span></div>
+    </nav>
+
+    <header class="tool-header">
+        <h1>🔍 Nmap ("Network Mapper")</h1>
+        <p>Ağ keşfi ve güvenlik denetimi için endüstri standardı araç</p>
+    </header>
+
+    <section class="tool-content">
+        <div class="tool-intro">
+            <h2>📌 Nmap Nedir?</h2>
+            <p>Nmap, Gordon Lyon (Fyodor) tarafından geliştirilen, açık kaynak kodlu bir ağ tarama ve güvenlik denetim aracıdır. Ağlardaki cihazları keşfetmek, açık portları bulmak, servis ve işletim
+sistemlerini tespit etmek için kullanılır.</p>
+        </div>
+
+        <div class="tool-section">
+            <h2>🚀 Temel Kullanım</h2>
+            <div class="code-block">
+                <pre><code># Basit tarama
+nmap hedef.com
+
+# IP adresi tara
+nmap 192.168.1.1
+
+# Belirli port tara
+nmap -p 80,443 hedef.com
+nmap -p 1-1000 hedef.com
+nmap -p- hedef.com        # tüm portlar
+
+# Birden fazla hedef
+nmap 192.168.1.1 192.168.1.2
+nmap 192.168.1.0/24       # tüm alt ağ</code></pre>
+            </div>
+        </div>
+
+        <div class="tool-section">
+            <h2>🎯 Tarama Türleri</h2>
+            <div class="code-block">
+                <pre><code># SYN taraması (hızlı, yarı açık)
+sudo nmap -sS hedef.com
+
+# TCP bağlantı taraması
+nmap -sT hedef.com
+
+# UDP taraması (yavaş ama önemli)
+sudo nmap -sU hedef.com
+
+# FIN, NULL, XMAS taramaları (gizli)
+sudo nmap -sF hedef.com
+sudo nmap -sN hedef.com
+sudo nmap -sX hedef.com
+
+# ACK taraması (firewall keşfi)
+sudo nmap -sA hedef.com
+
+# Servis ve versiyon tespiti
+nmap -sV hedef.com
+
+# İşletim sistemi tespiti
+sudo nmap -O hedef.com
+
+# Agresif tarama (OS + versiyon + script + traceroute)
+sudo nmap -A hedef.com</code></pre>
+            </div>
+        </div>
+
+        <div class="tool-section">
+            <h2>🕵️ NSE (Nmap Scripting Engine)</h2>
+            <p>Nmap'in Lua tabanlı script motoru. Yüzlerce hazır script ile güvenlik testi yapabilirsin.</p>
+            <div class="code-block">
+                <pre><code># Varsayılan scriptleri çalıştır
+nmap -sC hedef.com
+
+# Belirli script
+nmap --script=http-title hedef.com
+nmap --script=ssl-heartbleed hedef.com
+nmap --script=vuln hedef.com
+
+# Script kategorisi
+nmap --script=auth hedef.com
+nmap --script=brute hedef.com
+nmap --script=exploit hedef.com
+nmap --script=safe hedef.com
+
+# Tüm http* scriptleri
+nmap --script "http-*" hedef.com
+
+# Script yardımı
+nmap --script-help=http-enum</code></pre>
+            </div>
+        </div>
+
+        <div class="tool-section">
+            <h2>⚡ Performans ve Zamanlama</h2>
+            <div class="code-block">
+                <pre><code># Zamanlama şablonları (-T0 en yavaş, -T5 en hızlı)
+nmap -T4 hedef.com           # agresif
+nmap -T0 hedef.com           # paranoyak (IDS atlatır)
+
+# Paket hızı
+nmap --min-rate 1000 hedef.com
+nmap --max-retries 2 hedef.com
+
+# Paralel tarama
+nmap --min-parallelism 10 hedef.com
+
+# Çıktı kaydetme
+nmap -oN sonuc.txt hedef.com     # normal
+nmap -oX sonuc.xml hedef.com     # XML
+nmap -oG sonuc.gnmap hedef.com   # greppable
+nmap -oA tumu hedef.com          # hepsi</code></pre>
+            </div>
+        </div>
+
+        <div class="tool-section">
+            <h2>🔥 İleri Seviye Örnekler</h2>
+            <div class="code-block">
+                <pre><code># Firewall/IDS atlatma
+sudo nmap -f hedef.com              # fragment
+sudo nmap --mtu 24 hedef.com
+nmap -D RND:10 hedef.com            # decoy
+sudo nmap -S 192.168.1.50 hedef.com # sahte IP
+
+# IPv6 tarama
+nmap -6 hedef.com
+
+# Tüm keşif + script taraması
+sudo nmap -sS -sV -O -A -p- --script=vuln,exploit -T4 hedef.com -oA tam_tarama
+
+# Servis versiyonu detaylı
+nmap -sV --version-intensity 9 hedef.com
+
+# HTTP servisleri için özel
+nmap -p 80,443 --script "http-*" hedef.com</code></pre>
+            </div>
+        </div>
+
+        <div class="tool-section">
+            <h2>💡 Pratik Kullanım Senaryoları</h2>
+            <div class="info-list">
+                <li><strong>Yerel ağı tarama:</strong> <code>nmap -sn 192.168.1.0/24</code> (sadece ping taraması, açık hostları bulur)</li>
+                <li><strong>Web sunucu tespiti:</strong> <code>nmap -p 80,443 -sV --script=http-title 192.168.1.0/24</code></li>
+                <li><strong>Zafiyet taraması:</strong> <code>nmap --script=vuln hedef.com</code></li>
+                <li><strong>SMB paylaşım tespiti:</strong> <code>nmap -p 445 --script=smb-enum-shares hedef.com</code></li>
+            </div>
+        </div>
+
+        <div class="tool-nav">
+            <a href="../tools.html" class="btn btn-secondary">← Araçlar Listesi</a>
+            <a href="sqlmap.html" class="btn btn-primary">SQLMap →</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Topluluk</h4>
+                <a href="https://whatsapp.com/channel/0029Vb7aKWbL2ATxiYt8e52f" class="social-link" target="_blank">📱 WhatsApp Kanalımız</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>⚠️ Yalnızca izinli hedeflerde kullanın. İzinsiz tarama yasal suçtur.</p>
+            <p>&copy; 2026 KaliTR</p>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+</body>
+</html>

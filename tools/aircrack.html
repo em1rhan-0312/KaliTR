@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aircrack-ng - Kali Linux Araçları</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <span class="logo-icon">🐉</span>
+            <span class="logo-text">Kali<span class="accent">TR</span></span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="../index.html">Ana Sayfa</a></li>
+            <li><a href="../download.html">İndir</a></li>
+            <li><a href="../packages.html">Paket Kurulumu</a></li>
+            <li><a href="../tools.html">Araçlar</a></li>
+            <li><a href="../iletisim.html">İletişim</a></li>
+        </ul>
+        <div class="hamburger"><span></span><span></span><span></span></div>
+    </nav>
+
+    <header class="tool-header">
+        <h1>📡 Aircrack-ng</h1>
+        <p>Kablosuz Ağ Güvenliği ve Şifre Kırma Paketi</p>
+    </header>
+
+    <section class="tool-content">
+        <div class="tool-intro">
+            <h2>📌 Aircrack-ng Nedir?</h2>
+            <p>Aircrack-ng, WiFi ağlarının güvenliğini test etmek için kullanılan bir araç koleksiyonudur. Paket yakalama, WEP/WPA/WPA2 şifre kırma, sahte erişim noktası oluşturma gibi işlemler
+yapabilir.</p>
+            <p><strong>⚠️ Önemli:</strong> Bu araçları yalnızca kendi ağlarınızda test amaçlı kullanın. İzinsiz kullanım yasadışıdır.</p>
+        </div>
+
+        <div class="tool-section">
+            <h2>🛠️ Gerekli Donanım</h2>
+            <div class="info-list">
+                <li><strong>Monitor mode destekleyen WiFi adaptör</strong> (gerekli)</li>
+                <li>Önerilen: Alfa Networks AWUS036ACH, AWUS036NHA, TP-Link TL-WN722N v1</li>
+                <li>USB adaptörler masaüstünde daha iyi çalışır</li>
+                <li>Dahili laptop WiFi genelde yetersizdir</li>
+            </div>
+        </div>
+
+        <div class="tool-section">
+            <h2>🎯 Aircrack-ng Araçları</h2>
+            <div class="info-list">
+                <li><strong>airmon-ng:</strong> Monitor mode yönetimi</li>
+                <li><strong>airodump-ng:</strong> Ağ ve istemci taraması</li>
+                <li><strong>aireplay-ng:</strong> Paket enjeksiyonu ve deauth</li>
+                <li><strong>aircrack-ng:</strong> Şifre kırma</li>
+                <li><strong>airbase-ng:</strong> Sahte erişim noktası</li>
+                <li><strong>airolib-ng:</strong> WPA hash veritabanı</li>
+            </div>
+        </div>
+
+        <div class="tool-section">
+            <h2>📋 Temel Kullanım Adımları</h2>
+            <div class="code-block">
+                <pre><code># 1) Adaptörü monitor moduna al
+sudo airmon-ng start wlan0
+
+# Çıktı: (monitor mode enabled on wlan0mon)
+
+# 2) Çevredeki ağları tara
+sudo airodump-ng wlan0mon
+
+# Çıktıda göreceğin sütunlar:
+# BSSID (AP MAC), PWR, CH (kanal), ENC (şifreleme), ESSID (ağ adı)
+
+# 3) Belirli bir ağa odaklan
+sudo airodump-ng -c 6 --bssid AA:BB:CC:DD:EE:FF -w yakalanan wlan0mon
+
+# -c: kanal
+# --bssid: hedef AP MAC adresi
+# -w: dosya adı (yakalanan-01.cap olarak kaydedilir)
+
+# 4) WPA Handshake yakalamak için deauth saldırısı
+# (Yeni terminalde)
+sudo aireplay-ng -0 5 -a AA:BB:CC:DD:EE:FF -c FF:FF:FF:FF:FF:FF wlan0mon
+
+# -0: deauth
+# 5: 5 kez gönder
+# -a: hedef AP
+# -c: hedef istemci (broadcast tüm istemciler)
+
+# Ekranda "WPA handshake: AA:BB:CC:DD:EE:FF" görünce handshake yakalandı
+
+# 5) Şifre kırma
+sudo aircrack-ng -w /usr/share/wordlists/rockyou.txt yakalanan-01.cap
+
+# -w: wordlist (kelime listesi)
+# rockyou.txt en popüler wordlisttir</code></pre>
+            </div>
+        </div>
+
+        <div class="tool-section">
+            <h2>⚙️ Ek Faydalı Komutlar</h2>
+            <div class="code-block">
+                <pre><code># Monitor mode kapatma
+sudo airmon-ng stop wlan0mon
+
+# Ağ adaptörünü yeniden başlatma
+sudo systemctl restart NetworkManager
+
+# İşlemci tespiti
+airmon-ng
+
+# Sürücü kontrol
+airmon-ng check
+
+# Belirli ESSID için kırma
+aircrack-ng -w wordlist.txt -e "WiFi_Adi" capture.cap
+
+# Birden fazla capture dosyası
+aircrack-ng -w wordlist.txt capture1.cap capture2.cap
+
+# Sadece AP MAC ile
+aircrack-ng -w wordlist.txt -b AA:BB:CC:DD:EE:FF capture.cap
+
+# GPU hızlandırmalı kırma (hashcat ile)
+# önce hcxtools kullanarak dönüştür
+hcxcaptool -z capture.16800 yakalanan-01.cap
+hashcat -m 16800 capture.16800 wordlist.txt
+
+# WEP kırma (WEP günümüzde neredeyse kullanılmıyor)
+aircrack-ng -z yakalanan-01.cap</code></pre>
+            </div>
+        </div>
+
+        <div class="tool-section">
+            <h2>💡 Otomasyon: Wifite</h2>
+            <p>Wifite, Aircrack-ng'yi otomatikleştiren bir araçtır. Tek komutla handshake yakalama ve kırma yapar.</p>
+            <div class="code-block">
+                <pre><code># Tüm ağları otomatik test et
+sudo wifite
+
+# Belirli şifrelemeye odaklan
+sudo wifite --wpa
+sudo wifite --wep
+
+# Belirli kanal
+sudo wifite -c 6
+
+# Zaman aşımı
+sudo wifite --time 600
+
+# Belirli wordlist
+sudo wifite --dict /usr/share/wordlists/rockyou.txt
+
+# 5GHz bandı
+sudo wifite --5ghz</code></pre>
+            </div>
+        </div>
+
+        <div class="tool-section">
+            <h2>🔒 Wordlist'ler (Kelime Listeleri)</h2>
+            <div class="info-list">
+                <li><strong>rockyou.txt:</strong> En popüler, 14 milyon şifre - <code>/usr/share/wordlists/rockyou.txt</code></li>
+                <li><strong>darkweb2017-top10000.txt:</strong> Popüler 10K şifre</li>
+                <li><strong>SecLists:</strong> Çeşitli wordlist koleksiyonu (GitHub'dan indir)</li>
+                <li>Kendi wordlist'ini oluştur: <code>crunch 8 12 -o liste.txt</code> (8-12 karakter)</li>
+            </div>
+            <div class="code-block">
+                <pre><code># crunch ile wordlist oluşturma
+crunch 8 12 -o /tmp/wordlist.txt
+
+# Sadece rakamlar
+crunch 8 8 0123456789 -o rakam.txt
+
+# Belirli karakterler
+crunch 6 6 abcdef123 -o ozel.txt
+
+# Wordlist indir
+sudo apt install seclists
+# veya
+git clone https://github.com/danielmiessler/SecLists.git /usr/share/seclists</code></pre>
+            </div>
+        </div>
+
+        <div class="tool-nav">
+            <a href="burpsuite.html" class="btn btn-secondary">← Burp Suite</a>
+            <a href="../tools.html" class="btn btn-primary">Araçlar Listesi →</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Topluluk</h4>
+                <a href="https://whatsapp.com/channel/0029Vb7aKWbL2ATxiYt8e52f" class="social-link" target="_blank">📱 WhatsApp Kanalımız</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>⚠️ Yalnızca kendi ağlarınızda test amaçlı kullanın.</p>
+            <p>&copy; 2026 KaliTR</p>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+</body>
+</html>

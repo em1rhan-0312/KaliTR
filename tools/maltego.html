@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maltego - Kali Linux Araçları</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <span class="logo-icon">🐉</span>
+            <span class="logo-text">Kali<span class="accent">TR</span></span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="../index.html">Ana Sayfa</a></li>
+            <li><a href="../download.html">İndir</a></li>
+            <li><a href="../packages.html">Paket Kurulumu</a></li>
+            <li><a href="../tools.html">Araçlar</a></li>
+            <li><a href="../iletisim.html">İletişim</a></li>
+        </ul>
+        <div class="hamburger"><span></span><span></span><span></span></div>
+    </nav>
+
+    <header class="tool-header">
+        <h1>🕸️ Maltego</h1>
+        <p>OSINT ve Görsel Veri Madenciliği - Paterva tarafından geliştirildi</p>
+    </header>
+
+    <section class="tool-content">
+        <div class="tool-intro">
+            <h2>📌 Maltego Nedir?</h2>
+            <p>Maltego, açık kaynak istihbaratı (OSINT) toplamak ve görselleştirmek için kullanılan bir araçtır. Kişiler, şirketler, alan adları, IP adresleri, e-postalar arasındaki ilişkileri grafik
+olarak gösterir.</p>
+        </div>
+
+        <div class="tool-section">
+            <h2>🚀 Başlangıç</h2>
+            <div class="code-block">
+                <pre><code># Maltego'yu başlat
+maltego
+
+# Kurulum (Kali'de varsayılan)
+sudo apt install maltego -y
+
+# Community Edition (CTAS) ücretsiz
+# Kayıt ol: https://www.maltego.com/ce-registration/</code></pre>
+            </div>
+        </div>
+
+        <div class="tool-section">
+            <h2>🔧 Çalışma Mantığı</h2>
+            <p>Maltego iki temel kavram üzerine kuruludur:</p>
+            <div class="info-list">
+                <li><strong>Entities (Varlıklar):</strong> Bir domain, kişi, IP, e-posta gibi bilgi parçaları</li>
+                <li><strong>Transforms (Dönüşümler):</strong> Bir varlıktan başka bir varlığa geçişi sağlayan sorgular (DNS, WHOIS, arama motoru, sosyal medya vb.)</li>
+            </div>
+        </div>
+
+        <div class="tool-section">
+            <h2>🎯 Yaygın Kullanım Senaryoları</h2>
+            <div class="info-list">
+                <li><strong>Bir Domain'in Tüm Bilgileri:</strong> Domain → WHOIS → E-posta → Kişi → Diğer domain'ler</li>
+                <li><strong>Bir Kişinin Dijital Ayak İzi:</strong> E-posta adresi → Sosyal medya profilleri</li>
+                <li><strong>IP → Konum → ASN → Diğer IP'ler</strong></li>
+                <li><strong>Subdomain keşfi:</strong> Ana domain → Tüm alt domain'ler</li>
+                <li><strong>Sosyal medya bağlantıları:</strong> Facebook → Twitter → Instagram → E-posta</li>
+            </div>
+        </div>
+
+        <div class="tool-section">
+            <h2>📋 Kullanım Adımları</h2>
+            <div class="code-block">
+                <pre><code>1) Yeni grafik oluştur (File → New Graph)
+2) Palette'den "Domain" varlığını sürükle
+3) Hedef domain'i yaz (örn: hedef.com)
+4) Varlık üzerinde sağ tıkla
+5) "All Transforms" seçeneğini tıkla
+6) Maltego otomatik olarak bilgi toplar
+7) Toplanan bilgiler grafiğe eklenir
+8) Her yeni varlık için aynı işlemi tekrarla
+
+Kısayollar:
+- Ctrl+N : Yeni grafik
+- Ctrl+S : Kaydet
+- Ctrl+G : Çalıştır (Run transforms)
+- Ctrl+L : Yerleşimi düzenle (Layout)</code></pre>
+            </div>
+        </div>
+
+        <div class="tool-section">
+            <h2>💡 Faydalı Transforms (Eklentiler)</h2>
+            <div class="info-list">
+                <li><strong>Shodan:</strong> IP'ler, portlar, servisler hakkında bilgi</li>
+                <li><strong>HaveIBeenPwned:</strong> Sızan e-postaları bulma</li>
+                <li><strong>Hunter.io:</strong> Bir domain'e ait e-postaları bulma</li>
+                <li><strong>Social Links:</strong> Sosyal medya bağlantı analizi</li>
+                <li><strong>Pipl:</strong> Kişi arama motoru</li>
+                <li><strong>BuiltWith:</strong> Web teknoloji tespiti</li>
+            </div>
+        </div>
+
+        <div class="tool-section">
+            <h2>📂 Grafik Kaydetme ve Paylaşma</h2>
+            <div class="info-list">
+                <li>Maltego grafikleri .maltego veya .mtgx formatında kaydedilir</li>
+                <li>Grafik PNG, PDF, SVG olarak dışa aktarılabilir</li>
+                <li>Büyük keşifler için Report özelliği kullanılabilir</li>
+                <li>Collaboration için Maltego CE ücretsizdir</li>
+            </div>
+        </div>
+
+        <div class="tool-nav">
+            <a href="sqlmap.html" class="btn btn-secondary">← SQLMap</a>
+            <a href="metasploit.html" class="btn btn-primary">Metasploit →</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Topluluk</h4>
+                <a href="https://whatsapp.com/channel/0029Vb7aKWbL2ATxiYt8e52f" class="social-link" target="_blank">📱 WhatsApp Kanalımız</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>⚠️ Eğitim amaçlıdır.</p>
+            <p>&copy; 2026 KaliTR</p>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+</body>
+</html>

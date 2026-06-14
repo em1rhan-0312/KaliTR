@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Burp Suite - Kali Linux Araçları</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <span class="logo-icon">🐉</span>
+            <span class="logo-text">Kali<span class="accent">TR</span></span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="../index.html">Ana Sayfa</a></li>
+            <li><a href="../download.html">İndir</a></li>
+            <li><a href="../packages.html">Paket Kurulumu</a></li>
+            <li><a href="../tools.html">Araçlar</a></li>
+            <li><a href="../iletisim.html">İletişim</a></li>
+        </ul>
+        <div class="hamburger"><span></span><span></span><span></span></div>
+    </nav>
+
+    <header class="tool-header">
+        <h1>🕷️ Burp Suite</h1>
+        <p>Web Uygulama Güvenlik Testi - Endüstri Standardı</p>
+    </header>
+
+    <section class="tool-content">
+        <div class="tool-intro">
+            <h2>📌 Burp Suite Nedir?</h2>
+            <p>PortSwigger tarafından geliştirilen Burp Suite, web uygulamalarını güvenlik açıklarına karşı test etmek için kullanılan bir platformdur. Proxy, tarayıcı, intruder, repeater, decoder gibi
+birçok modülden oluşur. Community Edition ücretsizdir.</p>
+        </div>
+
+        <div class="tool-section">
+            <h2>🚀 Başlatma</h2>
+            <div class="code-block">
+                <pre><code># Kali'de Burp Suite zaten kurulu
+burpsuite
+
+# Farklı sürüm
+burpsuite_pro
+burpsuite_enterprise
+
+# İlk açılışta:
+# 1) Project tipi seç (Temporarily project iyi)
+# 2) Use Burp defaults seç
+# 3) Start Burp tıkla</code></pre>
+            </div>
+        </div>
+
+        <div class="tool-section">
+            <h2>🌐 Tarayıcı Proxy Ayarları</h2>
+            <div class="info-list">
+                <li>Burp varsayılan olarak 127.0.0.1:8080'de dinler</li>
+                <li>Firefox/Chrome → Ayarlar → Proxy → Manuel Proxy → 127.0.0.1:8080</li>
+                <li>Burp sertifikasını içe aktar: http://burp → CA Certificate indir → Tarayıcı sertifikalarına ekle</li>
+            </div>
+            <div class="code-block">
+                <pre><code># Firefox'u hazır proxy ile başlat
+firefox --proxy-server="http://127.0.0.1:8080"
+
+# Veya FoxyProxy eklentisi kullan (en kolay)</code></pre>
+            </div>
+        </div>
+
+        <div class="tool-section">
+            <h2>📦 Modüller</h2>
+            <div class="info-list">
+                <li><strong>Proxy:</strong> Tarayıcı ile hedef arasına girer, istekleri yakalar ve değiştirir</li>
+                <li><strong>Target:</strong> Keşfedilen tüm URL'leri ve kategorileri gösterir</li>
+                <li><strong>Intruder:</strong> Otomatik saldırılar (brute force, fuzzing)</li>
+                <li><strong>Repeater:</strong> İstekleri manuel olarak değiştirip tekrar gönderir</li>
+                <li><strong>Sequencer:</strong> Token/oturum rastgeleliğini analiz eder</li>
+                <li><strong>Decoder:</strong> Encoding/decoding (Base64, URL, HTML, hex)</li>
+                <li><strong>Comparer:</strong> İki yanıtı karşılaştırır</li>
+                <li><strong>Logger:</strong> Tüm trafiği kaydeder</li>
+                <li><strong>Extender:</strong> Eklentiler (BApp Store)</li>
+            </div>
+        </div>
+
+        <div class="tool-section">
+            <h2>⚡ Temel Kullanım Akışı</h2>
+            <div class="code-block">
+                <pre><code>1) Proxy'i aç (Proxy sekmesi → Intercept is on)
+2) Tarayıcıdan hedef siteye git
+3) Burp isteği yakalar → Forward tıkla
+4) Hedef URL'ler Target sekmesinde birikir
+5) İlginç bir isteği Repeater'a gönder (sağ tık → Send to Repeater)
+6) Repeater'da isteği değiştir ve Send'e bas
+7) Yanıtı analiz et
+8) Intruder için sağ tık → Send to Intruder
+9) Intruder'da payload pozisyonları seç
+10) Sniper/Battering Ram/Pitchfork/Cluster Bomb modunu seç
+11) Start attack</code></pre>
+            </div>
+        </div>
+
+        <div class="tool-section">
+            <h2>💣 Intruder Saldırı Modları</h2>
+            <div class="info-list">
+                <li><strong>Sniper:</strong> Tek pozisyon, tek payload listesi (en yaygın)</li>
+                <li><strong>Battering Ram:</strong> Tüm pozisyonlara aynı payload</li>
+                <li><strong>Pitchfork:</strong> Her pozisyona farklı listelerden sırayla</li>
+                <li><strong>Cluster Bomb:</strong> Tüm kombinasyonları dener (brute force)</li>
+            </div>
+        </div>
+
+        <div class="tool-section">
+            <h2>🎯 Yaygın Kullanım Senaryoları</h2>
+            <div class="info-list">
+                <li><strong>SQL Injection testi:</strong> Repeater'da parametreleri değiştir, ' " gibi karakterlerle dene</li>
+                <li><strong>XSS testi:</strong> &lt;script&gt;alert(1)&lt;/script&gt; payload'ı enjekte et</li>
+                <li><strong>Login bypass:</strong> admin' --  gibi SQL bypass payload'ları dene</li>
+                <li><strong>IDOR tespiti:</strong> User ID'leri değiştir (id=1 → id=2) başka kullanıcı verilerine ulaş</li>
+                <li><strong>Brute force:</strong> Intruder ile login formlarını dene</li>
+                <li><strong>Directory bruteforce:</strong> /admin, /backup, /config gibi dizinleri dene</li>
+                <li><strong>Header manipülasyonu:</strong> User-Agent, X-Forwarded-For, Referer değiştir</li>
+            </div>
+        </div>
+
+        <div class="tool-section">
+            <h2>🔌 Faydalı Eklentiler (BApp Store)</h2>
+            <div class="info-list">
+                <li><strong>Logger++:</strong> Gelişmiş loglama</li>
+                <li><strong>Autorize:</strong> Yetki kontrol testleri</li>
+                <li><strong>Active Scan++:</strong> Gelişmiş aktif tarama</li>
+                <li><strong>Software Vulnerability Scanner:</strong> Bilinen zafiyetleri tespit</li>
+                <li><strong>JWT Editor:</strong> JWT token manipülasyonu</li>
+            </div>
+        </div>
+
+        <div class="tool-nav">
+            <a href="metasploit.html" class="btn btn-secondary">← Metasploit</a>
+            <a href="aircrack.html" class="btn btn-primary">Aircrack →</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Topluluk</h4>
+                <a href="https://whatsapp.com/channel/0029Vb7aKWbL2ATxiYt8e52f" class="social-link" target="_blank">📱 WhatsApp Kanalımız</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>⚠️ Yalnızca izinli hedeflerde kullanın.</p>
+            <p>&copy; 2026 KaliTR</p>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+</body>
+</html>
